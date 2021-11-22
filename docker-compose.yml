@@ -1,0 +1,18 @@
+version: '3'
+    
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: fa2aedd3ff9b
+    container_name: bag_recorder_back
+    restart: always
+    volumes:
+      - .:/home/user/ros2_ws/src
+    network_mode: "host"
+    command: >
+      bash -c "pip install uvicorn && pip install fastapi && pip install jinja2 && cd /home/user/ros2_ws/src/app && uvicorn main:app --reload"
+  redis:
+    image: "redis:alpine"
+    
